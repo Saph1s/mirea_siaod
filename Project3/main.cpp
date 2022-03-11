@@ -4,10 +4,11 @@
 
 using namespace std;
 
-void Merge(int* A, int first, int last, int* s, int* c) //Сливание массивов
+void Merge(int* A, int first, int last, int* s, int* c, int* n) //Сливание массивов
 {
+	int m = *n + 1;
 	int middle, start, final, j;
-	int* mas = new int[1000];
+	int* mas = new int[m];
 	middle = (first + last) / 2; //средний элемент
 	start = first; //начало левой части
 	final = middle + 1; //начало правой части
@@ -28,17 +29,17 @@ void Merge(int* A, int first, int last, int* s, int* c) //Сливание массивов
 		}
 	}
 	for (j = first; j <= last; j++) A[j] = mas[j]; 	//возвращение результата в список
-	delete[]mas; //очистка
+	delete[] mas;
 };
 
-void MergeSort(int* A, int first, int last, int* s, int* c) //Рекурсивная процедура сортировки
+void MergeSort(int* A, int first, int last, int* s, int* c, int* n) //Рекурсивная процедура сортировки
 {
 	{
 		if (first < last)
 		{
-			MergeSort(A, first, (first + last) / 2, s, c); //сортировка левой части
-			MergeSort(A, (first + last) / 2 + 1, last, s, c); //сортировка правой части
-			Merge(A, first, last, s, c); //слияние двух частей
+			MergeSort(A, first, (first + last) / 2, s, c, n); //сортировка левой части
+			MergeSort(A, (first + last) / 2 + 1, last, s, c, n); //сортировка правой части
+			Merge(A, first, last, s, c, n); //слияние двух частей
 			*c += 1;
 		}
 	}
@@ -63,20 +64,22 @@ void main()
 	}
 
 	auto start = chrono::steady_clock::now();
-	MergeSort(A, 1, n, &s, &c);
+	MergeSort(A, 1, n, &s, &c, &n);
 	auto end = chrono::steady_clock::now();
 	auto diff = end - start;
 
-	for (int i = 0; i <= n; ++i)
+	/*for (int i = 0; i <= n; ++i)
 	{
 		cout << A[i] << " ";
 		
 	}
-	cout << endl;
+	cout << endl;*/
 
 	cout << chrono::duration <double, milli>(diff).count() << " ms" << endl;
 	cout << "s = " << s << endl;
 	cout << "c = " << c << endl;
+	cout << s + c << endl;
+
 
 	//system("pause");
 }
