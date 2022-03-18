@@ -75,7 +75,7 @@ void main()
 	}
 	cout << endl;*/
 
-	cout << chrono::duration <double, milli>(diff).count() << " ms" << endl;
+	cout << chrono::duration <double>(diff).count() << " s" << endl;
 	cout << "s = " << s << endl;
 	cout << "c = " << c << endl;
 	cout << s + c << endl;
