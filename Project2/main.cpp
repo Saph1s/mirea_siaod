@@ -42,7 +42,6 @@ int main() {
     for (int i = 0; i <= N; ++i)
     {
         a[i] = rand();
-        //cout << a[i] << endl;
     }
 
     auto start = chrono::steady_clock::now();
